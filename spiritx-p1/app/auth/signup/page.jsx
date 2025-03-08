@@ -1,8 +1,10 @@
 "use client";
-import { signup } from "../../lib/actions/auth"
+import { signup } from "../../../lib/actions/auth"
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -19,8 +21,12 @@ const Signup = () => {
     e.preventDefault();
     try {
       const response = await signup(formData);
-      console.log(response)
-      setMessage(response.data.message);
+      console.log(response);
+      if (response.success)
+      {
+        router.push("/");
+        setMessage(response.data.message);
+      }
     } catch (error) {
       setMessage(error.response?.data?.message || "Error signing up");
     }

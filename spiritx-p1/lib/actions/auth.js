@@ -12,8 +12,6 @@ export async function signup(formData) {
         const email = formData.email;
         const password = formData.password;
         const user_name = formData.username;
-        console.log(email, password, user_name);
-        // Validate inputs
         if (!email || !password || !user_name) {
             throw new Error("Missing required fields");
         }
@@ -25,9 +23,9 @@ export async function signup(formData) {
         
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ user_name, email, password: hashedPassword });
-        await newUser.save();
+        newUser.save();
         
-        return { success: true, message: "User registered successfully" };
+        return { success: true, message: "User registered successfully"};
     } catch (error) {
         console.error('Error signing up:', error);
         
@@ -36,6 +34,41 @@ export async function signup(formData) {
             success: false, 
             error: error.message || "Server error",
             code: error.message === "User already exists" ? "USER_EXISTS" : "SERVER_ERROR"
+        };
+    }
+}
+
+export async function login(formData) {
+    try {
+        await dbConnect();
+        
+        const email = formData.email;
+        const password = formData.password
+        
+
+        // Validate inputs 
+        if (!email || !password) {
+            throw new Error("Missing required fields");
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordMatch){
+            throw new Error("Password Does not Match")
+        }
+
+        return { success: true, message: "User logged in successfully" };
+    } catch (error) {
+        console.error('Error logging in:', error);
+        return { 
+            success: false, 
+            error: error.message || "Server error",
+            code: error.message === "User not found" ? "USER_NOT_FOUND" : "SERVER_ERROR"
         };
     }
 }
