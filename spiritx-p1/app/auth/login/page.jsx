@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // for navigation
-import { signup } from "../../lib/actions/auth";
+import { useRouter } from "next/navigation"; 
+import { signup } from "../../../lib/actions/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
