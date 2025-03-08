@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // for navigation
+import { signup } from "../../lib/actions/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,17 +10,12 @@ export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  const mockUsers = [
-    { email: "test@example.com", password: "password123" },
-    { email: "user@example.com", password: "password456" },
-  ];
-
-  const validate = () => {
+  const validate = async () => {
     let newErrors = {};
     if (!email) newErrors.email = "Email is required";
     if (!password) newErrors.password = "Password is required";
 
-    const user = mockUsers.find((user) => user.email === email);
+    const user = await signup("credentials", { email, password, redirect: false });
     if (user && user.password !== password) {
       newErrors.password = "Incorrect password";
     } else if (!user) {
@@ -30,12 +26,14 @@ export default function Login() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (validate()) {
       setIsSubmitting(true);
-      localStorage.setItem("userEmail", email); // Store the user email in localStorage
-      router.push("/landing"); // Redirect to the landing page
+      const result = await validate()
+      console.log(result)
+      localStorage.setItem("userEmail", email); 
+      // router.push("/"); // Redirect to the landing page
     }
   };
 

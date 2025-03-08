@@ -1,5 +1,5 @@
 "use client"
-import { signup } from '@/lib/ui/actions/auth'
+import { signup } from '@/lib/actions/auth'
  
 export function SignupForm() {
   return (
