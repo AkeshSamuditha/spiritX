@@ -1,4 +1,5 @@
 "use client";
+import { signup } from "../../lib/actions/auth"
 import { useState } from "react";
 
 const Signup = () => {
@@ -17,7 +18,8 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/signup", formData);
+      const response = await signup(formData);
+      console.log(response)
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data?.message || "Error signing up");

@@ -1,7 +1,7 @@
 // app/api/auth/register/route.js
 
 import { dbConnect } from "../../../../lib/db/mongodb";
-import User from "../../../../lib/db/models/user";
+import User from "@lib/db/models/user";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
