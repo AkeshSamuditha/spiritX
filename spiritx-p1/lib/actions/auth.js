@@ -44,7 +44,6 @@ export async function login(formData) {
         
         const email = formData.email;
         const password = formData.password
-        console.log(formData, email, password)
 
         // Validate inputs 
         if (!email || !password) {
@@ -61,8 +60,13 @@ export async function login(formData) {
         if (!isPasswordMatch){
             throw new Error("Password Does not Match")
         }
-
-        return { success: true, message: "User logged in successfully", user: user };
+        const userData = {
+            id: user._id.toString(),
+            username: user.user_name,
+            email: user.email
+        };
+        
+        return { success: true, message: "User logged in successfully", user: userData };
     } catch (error) {
         console.error('Error logging in:', error);
         return { 
