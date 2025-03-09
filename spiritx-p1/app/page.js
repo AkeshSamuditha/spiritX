@@ -1,9 +1,13 @@
+import Header from "../lib/ui/Header";
+import Footer from "../lib/ui/Footer";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-900 to-black text-white">
-      <div className="container mx-auto px-4 py-16 text-center">
+    <>
+      <Header />
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-900 to-black text-white">
+        <div className="container mx-auto px-4 py-16 text-center">
         <div className="mb-12">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
             Welcome to <span className="text-blue-400">SpiritX</span>
@@ -11,14 +15,7 @@ export default function Home() {
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
             Discover the next generation platform for digital innovation and creativity.
           </p>
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full transition-all">
-              Get Started
-            </button>
-            <button className="bg-transparent border border-white hover:bg-white hover:text-blue-900 text-white font-bold py-3 px-8 rounded-full transition-all">
-              Learn More
-            </button>
-          </div>
+         
         </div>
         
         <div className="relative h-64 w-full md:h-96 mt-12">
@@ -46,6 +43,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }
