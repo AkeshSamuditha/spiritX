@@ -2,10 +2,21 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import {  useState, useEffect } from "react";
 export default function Header() {
+  const router = useRouter();
+  const [username, setUsername] = useState(null);
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
   const handleLogout = () => {
-  
+    localStorage.removeItem('username');
+    localStorage.removeItem('userEmail');
+    setUsername(null);
     router.push('/auth/login');
   };
   
@@ -19,11 +30,19 @@ export default function Header() {
           </Link>
         </h1>
         <nav className="flex gap-6">
-          <Link href="/auth/signup" className="hover:text-blue-400">Signup</Link>
-          <Link href="/auth/login" className="hover:text-blue-400">Login</Link>
-          <button onClick={handleLogout} className="hover:text-blue-400">
-            Logout
-          </button>
+          {username ? (
+            <>
+              <span className="hover:text-blue-400">Welcome, {username}</span>
+              <button onClick={handleLogout} className="hover:text-blue-400">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/auth/signup" className="hover:text-blue-400">Signup</Link>
+              <Link href="/auth/login" className="hover:text-blue-400">Login</Link>
+            </>
+          )}
         </nav>
       </div>
     </header>

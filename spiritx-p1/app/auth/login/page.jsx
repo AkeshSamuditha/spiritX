@@ -35,10 +35,9 @@ export default function Login() {
         if (!results.success) {
           throw new Error(results.error);
         }
-        user = results.user;
-        console.log(user);
-        localStorage.setItem("userEmail", email); 
-        localStorage.setItem("userName", user.user_name);
+        const user = results.user;
+        localStorage.setItem("username", user.username);
+        localStorage.setItem("userEmail", user.email);
         toast.success("Successfully Logged In!");
         router.push("/"); 
       } catch (error) {

@@ -1,11 +1,24 @@
-import Header from "../lib/ui/Header";
-import Footer from "../lib/ui/Footer";
+
 import Image from "next/image";
+import { useEffect } from "react";
+
+"use client";
+
 
 export default function Home() {
+  // Add a reload function
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
+  // Effect to reload the page once when component mounts
+  useEffect(() => {
+    reloadPage();
+    // Empty dependency array ensures this runs only once on mount
+  }, []);
+  
   return (
     <>
-      <Header />
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-900 to-black text-white">
         <div className="container mx-auto px-4 py-16 text-center">
         <div className="mb-12">
@@ -20,10 +33,10 @@ export default function Home() {
         
         <div className="relative h-64 w-full md:h-96 mt-12">
           <Image 
-            src="/placeholder-hero.jpg" 
+            src="/logo-img.png" 
             alt="SpiritX Platform" 
             fill
-            className="object-cover rounded-xl shadow-2xl"
+            className="rounded-xl shadow-2xl"
             priority
           />
         </div>
@@ -44,7 +57,6 @@ export default function Home() {
         </div>
       </div>
       </main>
-      <Footer />
     </>
   );
 }
