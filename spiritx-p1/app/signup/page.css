@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap");
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f6f6f6;
+  width: 450px;
+  border-radius: 30px;
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+}
+.sign-up {
+  margin-top: 40px;
+  color: #1e88e5;
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.inputs {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.lucide {
+  color: gray;
+  padding: 3px;
+  opacity: 0.8;
+}
+.input {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  border-radius: 10px;
+  font-size: medium;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+input {
+  outline: none;
+}
+
+::placeholder {
+  color: gray;
+  opacity: 0.8;
+}
+button {
+  border: 2px solid #1e88e5;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  margin-top: 10px;
+  color: #1e88e5;
+  font-size: large;
+  padding: 5px;
+  transition: 0.5s;
+}
+button:hover {
+  background: #1e88e5;
+  color: #ffffff;
+  cursor: pointer;
+}
+.image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}

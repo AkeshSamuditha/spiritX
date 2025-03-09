@@ -1,5 +1,11 @@
 "use client";
+import "./page.css";
 import { useState } from "react";
+import { User } from "lucide-react";
+import { Mail } from "lucide-react";
+import { Lock } from "lucide-react";
+import Image from "next/image";
+import signupPic from "./signup.png";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -25,67 +31,53 @@ const Signup = () => {
   };
 
   return (
-    <div style={{ maxWidth: "700px", margin: "auto", padding: "100px" }}>
-      <h2
-        style={{
-          backgroundColor: "yellow",
-          color: "red",
-          padding: "5px",
-          borderRadius: "5px",
-          textAlign: "center",
-        }}
-      >
-        Sign Up
-      </h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        Username:
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={handleChange}
-          required
-          style={{ border: "2px solid black", padding: "5px" }}
-        />
-        <br />
-        <br />
-        Email:
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-          style={{ border: "2px solid black", padding: "5px" }}
-        />
-        <br />
-        <br />
-        Password:
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-          style={{ border: "2px solid black", padding: "5px" }}
-        />
-        <br />
-        <br />
-        <button
-          type="submit"
-          style={{
-            backgroundColor: " lightblue",
-            color: "white",
-            padding: "10px",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Sign Up
-        </button>
-      </form>
-    </div>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-900 to-black">
+      <div className="header ">
+        <div className="sign-up">Sign Up</div>
+        {message && <p>{message}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="inputs">
+            <div className="image">
+              <Image src={signupPic} height={150} alt="image" />
+            </div>
+            <div className="input">
+              <User />
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input">
+              <Mail />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="input">
+              <Lock />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button className="button" type="submit">
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
   );
 };
 
