@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; 
-import { signup } from "../../../lib/actions/auth";
+import { useRouter } from "next/navigation"; // for navigation
+import { signup } from "../../lib/actions/auth";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,26 +16,23 @@ export default function Login() {
     if (!email) newErrors.email = "Email is required";
     if (!password) newErrors.password = "Password is required";
 
-    const user = await signup("credentials", { email, password, redirect: false });
-    if (user && user.password !== password) {
-      newErrors.password = "Incorrect password";
-    } else if (!user) {
-      newErrors.email = "Email does not exist";
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleLogin = async (e) => {
+     toast("Wow so easy!");
+
     e.preventDefault();
     if (validate()) {
       setIsSubmitting(true);
-      const result = await validate()
-      console.log(result)
+      const user = await signup("credentials", { email, password, redirect: false });
+      console.log(user)
       localStorage.setItem("userEmail", email); 
       // router.push("/"); // Redirect to the landing page
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -80,6 +78,7 @@ export default function Login() {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
