@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // for navigation
-import { signup } from "../../lib/actions/auth";
+import { login } from "../../../lib/actions/auth";
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function Login() {
@@ -15,24 +15,38 @@ export default function Login() {
     let newErrors = {};
     if (!email) newErrors.email = "Email is required";
     if (!password) newErrors.password = "Password is required";
-
+    
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleLogin = async (e) => {
-     toast("Wow so easy!");
-
     e.preventDefault();
-    if (validate()) {
-      setIsSubmitting(true);
-      const user = await signup("credentials", { email, password, redirect: false });
-      console.log(user)
-      localStorage.setItem("userEmail", email); 
-      // router.push("/"); // Redirect to the landing page
+    if (await validate()) {
+      try {
+        setIsSubmitting(true);
+        // Use email and password variables directly
+        const results = await login({
+          email,
+          password,
+          redirect: false
+        });
+        if (!results.success) {
+          throw new Error(results.error);
+        }
+        user = results.user;
+        console.log(user);
+        localStorage.setItem("userEmail", email); 
+        localStorage.setItem("userName", user.user_name);
+        toast.success("Successfully Logged In!");
+        router.push("/"); 
+      } catch (error) {
+        toast.error(error.message || "Login failed. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
-    setIsSubmitting(false);
   };
 
   return (
