@@ -44,7 +44,7 @@ export async function login(formData) {
         
         const email = formData.email;
         const password = formData.password
-        
+        console.log(formData, email, password)
 
         // Validate inputs 
         if (!email || !password) {
@@ -62,7 +62,7 @@ export async function login(formData) {
             throw new Error("Password Does not Match")
         }
 
-        return { success: true, message: "User logged in successfully" };
+        return { success: true, message: "User logged in successfully", user: user };
     } catch (error) {
         console.error('Error logging in:', error);
         return { 
